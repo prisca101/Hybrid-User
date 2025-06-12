@@ -230,7 +230,7 @@ with st.container():
                             "Nora Roberts", "Michael Crichton"]
 
                 quick_authors = st.pills(
-                    "Quick Pick: Select favorite authors",
+                    "Quick Pick: Select 1 to 3 favorite authors",
                     options=top_authors,
                     selection_mode="multi"
                 )
@@ -241,8 +241,8 @@ with st.container():
                 )
 
                 selected_authors = list(set(quick_authors + custom_authors))
-                if len(selected_authors) > 3:
-                    st.warning("Please select no more than 3 authors")
+                if len(selected_authors) > 3 or len(selected_authors) == 0:
+                    st.warning("Please select 1 to 3 authors")
 
                 submitted = st.form_submit_button("💾 Save Preferences", use_container_width=True)
 
