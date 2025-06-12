@@ -241,8 +241,8 @@ with st.container():
                 )
 
                 selected_authors = list(set(quick_authors + custom_authors))
-                if len(selected_authors) > 3 or len(selected_authors) == 0:
-                    st.warning("Please select 1 to 3 authors")
+                # if len(selected_authors) > 3 or len(selected_authors) == 0:
+                #     st.warning("Please select 1 to 3 authors")
 
                 submitted = st.form_submit_button("💾 Save Preferences", use_container_width=True)
 
