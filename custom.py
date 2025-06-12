@@ -453,7 +453,7 @@ st.markdown("  \n")
 
 left_spacer, content, right_spacer = st.columns([0.25, 0.6, 0.25]) 
 with content:
-    st.image("banner_feedback.png", use_container_width=True)
+    st.image("banner_feedback2.png", use_container_width=True)
     st.markdown("  \n")
     st.markdown("  \n")
 
