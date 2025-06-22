@@ -48,6 +48,7 @@ item_id_mapping = data['item_id_mapping']
 cold_user_ids = data['cold_user_ids']
 test_ratings = data['test_ratings']
 num_users = len(user_id_mapping)
+list_fav_authors = data['list_fav_authors']
 
 
 
@@ -205,28 +206,27 @@ with st.container():
         st.markdown("  \n")
         st.markdown("  \n")
 
-        col1, col2, col3 = st.columns([1, 2, 1])
+        with st.form("user_preferences"): 
+            col1, col2 = st.columns(2, gap="large")
+            with col1:
+                top_genres = ["Fantasy", "Science Fiction", "Romance", "Mystery & Crime", 
+                            "Nonfiction (General)"]
+                quick_genres = st.pills(
+                    "Quick Pick: Select 1 to 3 favorite genres",
+                    options=top_genres,
+                    selection_mode="multi"
+                )
 
-            # with col1:
-            #     top_genres = ["Fantasy", "Science Fiction", "Romance", "Mystery & Crime", 
-            #                 "Nonfiction (General)"]
-            #     quick_genres = st.pills(
-            #         "Quick Pick: Select favorite genres",
-            #         options=top_genres,
-            #         selection_mode="multi"
-            #     )
+                custom_genres = st.multiselect(
+                    "Or search for other genres",
+                    options=sorted(data['genre_feature_mapping'].keys())
+                )
 
-            #     custom_genres = st.multiselect(
-            #         "Or search for other genres",
-            #         options=sorted(data['genre_feature_mapping'].keys())
-            #     )
+                selected_genres = list(set(quick_genres + custom_genres))
+                # if len(selected_genres) > 3:
+                #     st.warning("Please select no more than 3 genres")
 
-            #     selected_genres = list(set(quick_genres + custom_genres))
-            #     if len(selected_genres) > 3:
-            #         st.warning("Please select no more than 3 genres")
-
-        with col2:
-            with st.form("user_preferences"):
+            with col2:
                 top_authors = ["Agatha Christie", "John Grisham", "J.K. Rowling", "Stephen King", 
                             "Nora Roberts", "Michael Crichton"]
 
@@ -238,14 +238,14 @@ with st.container():
 
                 custom_authors = st.multiselect(
                     "Or search for other authors",
-                    options=sorted(data['author_feature_mapping'].keys())
+                    options=sorted(list_fav_authors)
                 )
 
-                selected_authors = list(set(quick_authors + custom_authors))
+                selected_authors = quick_authors + custom_authors
                 # if len(selected_authors) > 3 or len(selected_authors) == 0:
                 #     st.warning("Please select 1 to 3 authors")
 
-                submitted = st.form_submit_button("💾 Save Preferences", use_container_width=True)
+            submitted = st.form_submit_button("💾 Save Preferences", use_container_width=True)
 
 
 
@@ -278,15 +278,17 @@ with content:
         user_feature_vec = np.zeros(len(user_feature_map))
         
         # Set features
-        # for genre in selected_genres:
-        #     feature_name = f"genre_{genre.strip()}"
-        #     if feature_name in user_feature_map:
-        #         user_feature_vec[user_feature_map[feature_name]] = 1.0
+        for genre in selected_genres:
+            feature_name = f"genre_{genre.strip()}"
+            if feature_name in user_feature_map:
+                user_feature_vec[user_feature_map[feature_name]] = 1.0
 
         for author in selected_authors:
             feature_name = f"author_{author.strip()}"
             if feature_name in user_feature_map:
-                user_feature_vec[user_feature_map[feature_name]] = 1.0
+                idx = user_feature_map[feature_name]
+                user_feature_vec[idx] += 1.0 
+
 
         # Convert to sparse format
         custom_user_features = sp.csr_matrix(user_feature_vec.reshape(1, -1))
