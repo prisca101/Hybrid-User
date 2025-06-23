@@ -209,7 +209,7 @@ with st.container():
         with st.form("user_preferences"): 
             col1, col2 = st.columns(2, gap="large")
             with col1:
-                top_genres = ["Fantasy", "Science Fiction", "Romance", "Mystery & Crime", 
+                top_genres = ["Fantasy", "Science Fiction", "Romance", "Mystery & Thriller", 
                             "Nonfiction (General)"]
                 quick_genres = st.pills(
                     "Quick Pick: Select 1 to 3 favorite genres",
