@@ -477,9 +477,9 @@ with content:
                 [
                     "Excellent! Perfect matches!",
                     "Good! Mostly relevant",
-                    "Fair. Got some good suggestions",
-                    "Bad. Not what I wanted",
-                    "Horrible. Completely off"
+                    "Average. Got some okay suggestions",
+                    "Poor. Not what I wanted",
+                    "Bad. Completely off"
                 ],
                 label_visibility="collapsed"
             )
@@ -496,9 +496,9 @@ with content:
                 rating_map = {
                     "Excellent! Perfect matches!": 5,
                     "Good! Mostly relevant": 4,
-                    "Fair. Got some good suggestions": 3,
-                    "Bad. Not what I wanted": 2,
-                    "Horrible. Completely off": 1,
+                    "Average. Got some okay suggestions": 3,
+                    "Poor. Not what I wanted": 2,
+                    "Bad. Completely off": 1,
                 }
                 
                 numerical_rating = rating_map[rating]
