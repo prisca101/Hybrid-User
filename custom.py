@@ -286,8 +286,9 @@ with content:
         for author in selected_authors:
             feature_name = f"author_{author.strip()}"
             if feature_name in user_feature_map:
-                idx = user_feature_map[feature_name]
-                user_feature_vec[idx] += 1.0 
+                # idx = user_feature_map[feature_name]
+                # user_feature_vec[idx] += 1.0 
+                user_feature_vec[user_feature_map[feature_name]] = 1.0
 
 
         # Convert to sparse format
