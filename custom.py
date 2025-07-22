@@ -50,7 +50,12 @@ test_ratings = data['test_ratings']
 num_users = len(user_id_mapping)
 list_fav_authors = data['list_fav_authors']
 
-
+top_authors = [
+    'Stephen King', 'John Grisham', 'Nora Roberts', 'Dean R.Koontz', 'James Patterson',
+    'Anne Rice', 'Michael Crichton', 'Danielle Steel', 'Sue Grafton', 'Mary Higgins Clark',
+    'J.K. Rowling', 'Janet Evanovich', 'Tom Clancy', 'V.C. Andrews', 'J.R.R. Tolkien',
+    'Nicholas Sparks', 'Maeve Binchy', 'Sandra Brown', 'Anne Mccaffrey', 'Anita Shreve',
+]
 
 
 @st.dialog("Book Details", width="large")
@@ -284,11 +289,16 @@ with content:
                 user_feature_vec[user_feature_map[feature_name]] = 1.0
 
         for author in selected_authors:
-            feature_name = f"author_{author.strip()}"
-            if feature_name in user_feature_map:
-                idx = user_feature_map[feature_name]
-                user_feature_vec[idx] += 1.0 
-                # user_feature_vec[user_feature_map[feature_name]] = 1.0
+            if (author not in top_authors):
+                feature_name = f"author_{author.strip()}"
+                if feature_name in user_feature_map:
+                    idx = user_feature_map[feature_name]
+                    user_feature_vec[idx] += 1.0 
+                    # user_feature_vec[user_feature_map[feature_name]] = 1.0
+            else:
+                feature_name = f"author_{author.strip()}"
+                if feature_name in user_feature_map:
+                    user_feature_vec[user_feature_map[feature_name]] = 1.0
 
 
         # Convert to sparse format
