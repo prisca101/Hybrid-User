@@ -232,12 +232,12 @@ with st.container():
                 #     st.warning("Please select no more than 3 genres")
 
             with col2:
-                top_authors = ["Agatha Christie", "John Grisham", "J.K. Rowling", "Stephen King", 
+                top_authors_pick = ["Agatha Christie", "John Grisham", "J.K. Rowling", "Stephen King", 
                             "Nora Roberts", "Michael Crichton"]
 
                 quick_authors = st.pills(
                     "Quick Pick: Select 1 to 3 favorite authors",
-                    options=top_authors,
+                    options=top_authors_pick,
                     selection_mode="multi"
                 )
 
