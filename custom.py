@@ -51,7 +51,7 @@ num_users = len(user_id_mapping)
 list_fav_authors = data['list_fav_authors']
 
 top_authors = [
-    'Stephen King', 'John Grisham', 'Nora Roberts', 'Dean R.Koontz', 'James Patterson',
+    'Stephen King', 'John Grisham', 'Nora Roberts', 'Dean R. Koontz', 'James Patterson',
     'Anne Rice', 'Michael Crichton', 'Danielle Steel', 'Sue Grafton', 'Mary Higgins Clark',
     'J.K. Rowling', 'Janet Evanovich', 'Tom Clancy', 'V.C. Andrews', 'J.R.R. Tolkien',
     'Nicholas Sparks', 'Maeve Binchy', 'Sandra Brown', 'Anne Mccaffrey', 'Anita Shreve',
@@ -289,16 +289,14 @@ with content:
                 user_feature_vec[user_feature_map[feature_name]] = 1.0
 
         for author in selected_authors:
-            if (author not in top_authors):
-                feature_name = f"author_{author.strip()}"
-                if feature_name in user_feature_map:
-                    idx = user_feature_map[feature_name]
-                    user_feature_vec[idx] += 1.0 
-                    # user_feature_vec[user_feature_map[feature_name]] = 1.0
-            else:
-                feature_name = f"author_{author.strip()}"
-                if feature_name in user_feature_map:
-                    user_feature_vec[user_feature_map[feature_name]] = 1.0
+            feature_name = f"author_{author.strip()}"
+            if feature_name in user_feature_map:
+                idx = user_feature_map[feature_name]
+                if author not in top_authors:
+                    user_feature_vec[idx] += 1.0  # increase weight for non-top authors
+                else:
+                    user_feature_vec[idx] = 1.0  # fixed weight for top authors
+
 
 
         # Convert to sparse format
@@ -474,7 +472,9 @@ with content:
     st.markdown("  \n")
 
     with st.container():
-        
+        st.markdown("📚 This feedback form is intended for readers, book lovers, or members of the book community. Thank you for taking the time!")
+        st.markdown("  \n")
+
         with st.form("recommendation_feedback"):
             # Email collection
             email = st.text_input("**Your email**", 
