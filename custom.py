@@ -231,9 +231,12 @@ with st.container():
                 # if len(selected_genres) > 3:
                 #     st.warning("Please select no more than 3 genres")
 
-            with col2:
-                top_authors_pick = ["Agatha Christie", "John Grisham", "J.K. Rowling", "Stephen King", 
-                            "Nora Roberts", "Michael Crichton"]
+            with col2: # John Irving -> nonfiction, Clive Barker -> horror children, Neil Gaiman -> fantasy children, Jude Deveraux -> romance, Maya Angelou -> nonfiction
+                top_authors_pick = ["Agatha Christie", "John Grisham", "J.K. Rowling", "Clive Barker", 
+                                    "Jude Deveraux", "Maya Angelou"]
+                
+                # top_authors_pick = ["Agatha Christie", "John Grisham", "J.K. Rowling", "Stephen King", 
+                #             "Nora Roberts", "Michael Crichton"]
 
                 quick_authors = st.pills(
                     "Quick Pick: Select 1 to 3 favorite authors",
@@ -472,7 +475,7 @@ with content:
     st.markdown("  \n")
 
     with st.container():
-        st.markdown("📚 This feedback form is intended for readers, book lovers, or members of the book community. Thank you for taking the time!")
+        st.markdown("📚 This feedback form is intended for readers, book lovers, or members of a book community. Thank you for taking the time!")
         st.markdown("  \n")
 
         with st.form("recommendation_feedback"):
